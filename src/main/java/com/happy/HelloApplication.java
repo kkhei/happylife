@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 
  * @author zhaohaibin
  * @date 2019-12-02	
- * @describe springboot启动类
+ * @describe springboot启动类  
  */
 @MapperScan("com.happy.dao")
 @SpringBootApplication // Spring Boot项目的核心注解，主要目的是开启自动配置
