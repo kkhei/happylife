@@ -1,0 +1,150 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.happy</groupId>
+    <artifactId>happyLife</artifactId>
+    <packaging>jar</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<parent>  
+	    <groupId>org.springframework.boot</groupId>  
+	    <artifactId>spring-boot-starter-parent</artifactId>  
+	    <version>1.5.6.RELEASE</version>  
+	</parent> 
+	<properties>
+		<!-- 声明项目配置依赖编码格式为 utf-8 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- java jdk 版本声明 可变更 根据自己配置去匹配 -->
+		<java.version>1.8</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<!-- google包版本号 -->
+		<gson.version>2.5</gson.version>
+		<!-- druid 连接池版本 -->
+		<druid.version>1.0.26</druid.version>
+	</properties>
+	
+  <dependencies>
+		<!-- 对web开发的支持，包含了spring webmvc和tomcat等web开发的特性 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+		<!-- spring boot核心,包括自动配置支持，日志和YAML -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+		</dependency>
+		<!--导入配置文件处理器，配置文件进行绑定就会有提示-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!--引入其他的Servlet容器-->
+		<dependency>
+		   <artifactId>spring-boot-starter-jetty</artifactId>
+		   <groupId>org.springframework.boot</groupId>
+		</dependency>
+		<dependency>
+		   <artifactId>spring-boot-starter-undertow</artifactId>
+		   <groupId>org.springframework.boot</groupId>
+		</dependency>
+		<!--定时器  -->
+		<dependency>  
+            <groupId>org.quartz-scheduler</groupId>  
+            <artifactId>quartz</artifactId>  
+            <version>2.2.1</version>  
+            <exclusions>  
+                <exclusion>  
+                    <artifactId>slf4j-api</artifactId>  
+                    <groupId>org.slf4j</groupId>  
+                </exclusion>  
+            </exclusions>  
+        </dependency>
+        <!-- 该依赖必加，里面有sping对schedule的支持 --> 
+        <dependency> 
+             <groupId>org.springframework</groupId>  
+             <artifactId>spring-context-support</artifactId>  
+        </dependency>
+		 <!-- 数据源 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.47</version>
+        </dependency>
+        <!-- druid 连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+        <!-- redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <!-- quartz -->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz-jobs</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>1.1</version>
+        </dependency>
+		<!-- DevTools in Spring Boot 项目热部署 -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency> -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+        <!-- google包 -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>${gson.version}</version>
+		</dependency>
+		<dependency>
+	       <groupId>org.slf4j</groupId>
+	       <artifactId>slf4j-nop</artifactId>
+	       <version>1.7.2</version>
+  		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<!-- 如果我们要直接Main启动spring，那么以下plugin必须要添加，否则是无法启动的。-->
+			<!-- 如果使用maven的spring-boot:run的话就不需要此配置 -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.happy.HelloApplication</mainClass>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

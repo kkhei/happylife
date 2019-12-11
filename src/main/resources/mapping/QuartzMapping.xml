@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.happy.dao.IQuartzDao">
+ 	<sql id="tableName">
+		<![CDATA[
+        	t_happy_quartz_task
+	    ]]>
+	</sql>
+    <resultMap id="BaseResultMap" type="com.happy.pojo.QuartzTask">
+        <result column="guid" jdbcType="INTEGER" property="guid" />
+        <result column="module" jdbcType="VARCHAR" property="module" />
+        <result column="task_name" jdbcType="VARCHAR" property="task_name" />
+        <result column="task_address" jdbcType="VARCHAR" property="task_address" />
+        <result column="task_type" jdbcType="INTEGER" property="task_type" />
+        <result column="create_userid" jdbcType="VARCHAR" property="create_userid" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="delete_flag" jdbcType="INTEGER" property="delete_flag" />
+        <result column="crontab" jdbcType="VARCHAR" property="crontab" />
+        <result column="task_status" jdbcType="INTEGER" property="task_status" />
+    </resultMap>
+ 
+    <select id="getTask" resultType="com.happy.pojo.QuartzTask">
+        select * from 
+        <include refid="tableName" />
+         where delete_flag = 0
+    </select>
+ 
+</mapper>

@@ -1,0 +1,34 @@
+server:
+  port: 8888
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/
+      suffix: .jsp
+  profiles:
+    active: prod
+#数据库
+  datasource:
+    url:  jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+    username: root
+    password: root1234
+    type: com.alibaba.druid.pool.DruidDataSource
+mybatis:
+#指定sql映射文件的位置
+  mapper-locations: classpath:mapping/*.xml
+#日志
+logging:
+  file: E:\\springbootLogs\\happy.log
+  level:
+    root: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    com.jvtd.bop2: DEBUG
+    logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n"
+
+
