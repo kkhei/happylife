@@ -6,6 +6,10 @@ import com.happy.pojo.User;
 
 @Repository
 public interface IUserDao {
-	
+
 	User Sel(int id);
+
+	void saveUser(User user);
+	
+	
 }

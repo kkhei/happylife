@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.happy.pojo.User;
+import com.happy.quartz.AsyncTask;
 import com.happy.service.UserService;
 @Controller
 @RequestMapping("/testBoot")
@@ -30,8 +32,15 @@ public class UserController {
 	@Autowired
     private UserService userService;
 	@Autowired
+	AsyncTask asyncTask;
+	@Autowired
 	JdbcTemplate jdbcTemplate;
-	
+	/**
+	 * 返回页面不能加@ResponseBody
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView loginPage(HttpServletRequest request,HttpServletResponse response){
 		ModelAndView mav = new ModelAndView();
@@ -39,21 +48,30 @@ public class UserController {
 		LOG.info("login success");
 		return mav;
 	}
-	@RequestMapping("/hello")
-    public String hello(Model model) {
-    	System.err.println("hello");
-    	LOG.info("login info");
-    	LOG.error("login error");
-    	LOG.debug("login debug");
-    	model.addAttribute("msg","你好");
-        return "success";
+	@RequestMapping("/saveAsync")
+	@ResponseBody
+    public String hello() throws InterruptedException {
+		long currentTimeMillis = System.currentTimeMillis();  
+        Thread.sleep(1000);  
+		
+		asyncTask.saveAuthor1();
+		asyncTask.saveAuthor2();
+		asyncTask.saveAuthor3();
+		long currentTimeMillis1 = System.currentTimeMillis();  
+		LOG.info("task任务耗时:"+(currentTimeMillis1-currentTimeMillis)+"ms"); 
+		//userService.saveUser(user);
+        return "task任务耗时:"+(currentTimeMillis1-currentTimeMillis)+"ms";
     }
 	
  
     @RequestMapping("getUser/{id}")
     @ResponseBody
     public String getUser(@PathVariable int id){
-        return userService.Sel(id).toString();
+    	User sel = userService.Sel(id);
+    	if(sel !=null ) {
+    		return sel.toString();
+    	}
+    	return "not found data";
     }
    
 

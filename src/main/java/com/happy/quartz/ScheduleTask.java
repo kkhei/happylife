@@ -30,9 +30,9 @@ public class ScheduleTask {
     	LOGGER.info(test+Thread.currentThread().getName());
     }
 
-//    @Async
-//    @Scheduled(cron="${my.test.cron}")
-//    public void printVal2(){
-//        System.out.println(test+Thread.currentThread().getName());
-//    }
+    @Async
+    @Scheduled(cron="${my.test.cron}")
+    public void printVal2(){
+        System.out.println("2"+test+Thread.currentThread().getName());
+    }
 } 
