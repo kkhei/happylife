@@ -24,7 +24,6 @@ public class QuartzConfigration {
      * attention: 
      * Details：配置定时任务 
      */  
-    @Bean(name = "jobDetail")  
     public MethodInvokingJobDetailFactoryBean detailFactoryBean(ScheduleTask task) {// ScheduleTask为需要执行的任务  
     	String searchCron="";
     	List<QuartzTask> listTask = quartzDao.getTask();// 从数据库查询出来的  
@@ -57,33 +56,4 @@ public class QuartzConfigration {
         return jobDetail;  
     }  
       
-    /** 
-     * attention: 
-     * Details：配置定时任务的触发器，也就是什么时候触发执行定时任务 
-     */  
-    @Bean(name = "jobTrigger")  
-    public CronTriggerFactoryBean cronJobTrigger(MethodInvokingJobDetailFactoryBean jobDetail) {  
-        CronTriggerFactoryBean tigger = new CronTriggerFactoryBean();  
-        tigger.setJobDetail(jobDetail.getObject());  
-        tigger.setCronExpression("0 0/2 * * * ?");// 初始时的cron表达式  
-        tigger.setName("srd-chhliu");// trigger的name  
-        return tigger;
-  
-    }  
-  
-    /** 
-     * attention: 
-     * Details：定义quartz调度工厂 
-     */  
-    @Bean(name = "scheduler")  
-    public SchedulerFactoryBean schedulerFactory(Trigger cronJobTrigger) {  
-        SchedulerFactoryBean bean = new SchedulerFactoryBean();  
-        // 用于quartz集群,QuartzScheduler 启动时更新己存在的Job  
-        bean.setOverwriteExistingJobs(true);  
-        // 延时启动，应用启动1秒后  
-        bean.setStartupDelay(1);  
-        // 注册触发器  
-        bean.setTriggers(cronJobTrigger);  
-        return bean;  
-    }  
 }  
